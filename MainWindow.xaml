@@ -1,0 +1,143 @@
+﻿<Window x:Class="lab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab"
+        mc:Ignorable="d"
+        Title="Image Proccessing" Height="600" Width="1200" ResizeMode="CanResize">
+    <Grid  x:Name="Main_Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Header="Load Image" Click="LoadImg"/>
+                <MenuItem Header="Save Image" Click="SaveImg"/>
+            </MenuItem>
+            <MenuItem Header="Color">
+                <MenuItem Header="Grayscale" Click="ToGrey"/>
+            </MenuItem>
+            <MenuItem Header="Mask">
+                <ComboBox SelectedIndex="0" Name="Masks_Comb" SelectionChanged="Masks_Comb_SelectionChanged">
+                    <ComboBoxItem Content="Softening" IsSelected="True"/>
+                    <ComboBoxItem Content="Sharpen"/>
+                    <ComboBoxItem Content="Hipass"/>
+                    <ComboBoxItem Content="Edge Detect"/>
+                    <ComboBoxItem Content="Laplace (3x3)"/>
+                    <ComboBoxItem Content="Gaus (3x3)"/>
+                    <ComboBoxItem Content="Prewitt (vert)"/>
+                    <ComboBoxItem Content="Prewitt (hor)"/>
+                    <ComboBoxItem Content="Sobel (vert)"/>
+                    <ComboBoxItem Content="Sobel (hor)"/>
+                    <ComboBoxItem Content="Laplace (5x5)"/>
+                    <ComboBoxItem Content="Gaus (5x5)"/>
+                    <ComboBoxItem Content="Custom"/>
+                </ComboBox>
+                <MenuItem Header="Use Mask" Click="UseMask"/>
+            </MenuItem>
+            <MenuItem Header="Gradients">
+                <ComboBox SelectedIndex="0" Name="Gradients_Comb" SelectionChanged="Gradients_Comb_SelectionChanged">
+                    <ComboBoxItem Content="Negative" IsSelected="True"/>
+                    <ComboBoxItem Content="Logarithmic"/>
+                    <ComboBoxItem Content="Exponent"/>
+                </ComboBox>
+                <MenuItem Header="Use Gradient" Click="UseGradient"/>
+                <MenuItem Header="Normalize" Click="UseNorm"/>
+                <MenuItem Header="Histogram" Click="GetHistogram"/>
+            </MenuItem>
+            <MenuItem Header="Noise">
+                <ComboBox SelectedIndex="0" Name="Noise_Comb" SelectionChanged="Noise_Comb_SelectionChanged" >
+                    <ComboBoxItem Content="Rayleigh" IsSelected="True"/>
+                    <ComboBoxItem Content="Gaussian"/>
+                    <ComboBoxItem Content="Impulse"/>
+                </ComboBox>
+                <MenuItem Header="Add Noise" Click="AddNoise"/>
+            </MenuItem>
+            <MenuItem Header="Filter">
+                <ComboBox SelectedIndex="0" Name="Filter_Comb" SelectionChanged="Filter_Comb_SelectionChanged">
+                    <ComboBoxItem Content="Median" IsSelected="True"/>
+                    <ComboBoxItem Content="Arithmetic"/>
+                    <ComboBoxItem Content="Geometric"/>
+                    <ComboBoxItem Content="Harmonic"/>
+                    <ComboBoxItem Content="Contrharmonic"/>
+                </ComboBox>
+                <MenuItem Header="Use Filter" Click="UseFiter"/>
+            </MenuItem>
+            <MenuItem Header="Watermark" Click="ToWatermark"/>
+        </Menu>
+        <Image Grid.Column="1" Grid.Row="1" Name="ImageView" Margin="8"/>
+        <Grid Grid.Column="0" Grid.Row="1" Name="Side_Column">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0" Width="100" Visibility="Collapsed" x:Name="MatrixInput">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="0" Name="Text00"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Name="Text10"/>
+                <TextBox Grid.Column="2" Grid.Row="0" Name="Text20"/>
+                <TextBox Grid.Column="0" Grid.Row="1" Name="Text01"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Name="Text11"/>
+                <TextBox Grid.Column="2" Grid.Row="1" Name="Text21"/>
+                <TextBox Grid.Column="0" Grid.Row="2" Name="Text02"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Name="Text12"/>
+                <TextBox Grid.Column="2" Grid.Row="2" Name="Text22"/>
+                <TextBox Grid.Column="0" Grid.Row="3" Name="Text03"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Name="Text13"/>
+                <TextBox Grid.Column="2" Grid.Row="3" Name="Text23"/>
+                <TextBox Grid.Column="0" Grid.Row="4" Name="Text04"/>
+                <TextBox Grid.Column="1" Grid.Row="4" Name="Text14"/>
+                <TextBox Grid.Column="2" Grid.Row="4" Name="Text24"/>
+                <TextBox Grid.Column="3" Grid.Row="0" Name="Text30"/>
+                <TextBox Grid.Column="4" Grid.Row="0" Name="Text40"/>
+                <TextBox Grid.Column="3" Grid.Row="1" Name="Text31"/>
+                <TextBox Grid.Column="4" Grid.Row="1" Name="Text41"/>
+                <TextBox Grid.Column="3" Grid.Row="2" Name="Text32"/>
+                <TextBox Grid.Column="4" Grid.Row="2" Name="Text42"/>
+                <TextBox Grid.Column="3" Grid.Row="3" Name="Text33"/>
+                <TextBox Grid.Column="4" Grid.Row="3" Name="Text43"/>
+                <TextBox Grid.Column="3" Grid.Row="4" Name="Text34"/>
+                <TextBox Grid.Column="4" Grid.Row="4" Name="Text44"/>
+                <ComboBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Margin="8" Name="Matrix_Size" SelectionChanged="Matrix_Size_SelectionChanged">
+                    <ComboBoxItem Content="3" IsSelected="True"/>
+                    <ComboBoxItem Content="5"/>
+                </ComboBox>
+                <Label Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,8,8,8" Content="Size"/>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" Width="Auto" Name="Stats" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Margin="10, 1, 1, 1" Name="DataLabel1"/>
+                <Label Grid.Column="0" Grid.Row="1" Margin="10, 1, 1, 1" Name="DataLabel2"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="1, 8, 15, 4" Name="DataInput1"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="1, 8, 15, 4" Name="DataInput2"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window> 
