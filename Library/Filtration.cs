@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Drawing;
 
-namespace lab
+namespace lab.Library
 {
     class Filtration
     {
-        public static Bitmap Grayscale(Bitmap _bitmap) 
+        public static Bitmap Grayscale(Bitmap _bitmap)
         {
             var bitmap = new Bitmap(_bitmap);
             for (int i = 0; i < bitmap.Width; i++)
             {
                 for (int j = 0; j < bitmap.Height; j++)
                 {
-                    var color = bitmap.GetPixel(i,j);
+                    var color = bitmap.GetPixel(i, j);
                     var grey = (int)(0.2126 * color.R + 0.7152 * color.G + 0.0722 * color.B);
                     bitmap.SetPixel(i, j, Color.FromArgb(255, grey, grey, grey));
                 }
-            } 
+            }
             return bitmap;
         }
-        public static Bitmap UseFiler(Bitmap _bitmap, int[][] kernel) 
+        public static Bitmap UseFiler(Bitmap _bitmap, int[][] kernel)
         {
-            int offset = (int)(kernel.Length / 2);
-            var bitmap = new Bitmap((int)(_bitmap.Width - 2 * offset), (int)(_bitmap.Height - 2 * offset));
+            int offset = kernel.Length / 2;
+            var bitmap = new Bitmap(_bitmap.Width - 2 * offset, _bitmap.Height - 2 * offset);
             for (int i = offset; i < _bitmap.Width - offset; i++)
             {
                 for (int j = offset; j < _bitmap.Height - offset; j++)

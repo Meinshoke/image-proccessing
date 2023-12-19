@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace lab
+namespace lab.Library
 {
     class Gradient
     {
@@ -21,7 +21,7 @@ namespace lab
             }
             return bitmap;
         }
-        public static Bitmap LogTransform(Bitmap _bitmap,double n)
+        public static Bitmap LogTransform(Bitmap _bitmap, double n)
         {
             var bitmap = new Bitmap(_bitmap);
             for (int i = 0; i < bitmap.Width; i++)

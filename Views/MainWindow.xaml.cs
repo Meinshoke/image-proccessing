@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
+using lab.Library;
 
 namespace lab
 {

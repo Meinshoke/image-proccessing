@@ -5,7 +5,7 @@ using System.Collections;
 using System.Linq;
 using System.Diagnostics;
 
-namespace lab
+namespace lab.Library
 {
     class Watermark
     {

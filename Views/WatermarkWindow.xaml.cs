@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using lab.Library;
+using Microsoft.Win32;
 using System.Drawing;
 using System.IO;
 using System.Windows;

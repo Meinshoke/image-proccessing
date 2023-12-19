@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace lab
+namespace lab.Library
 {
     class Noise
     {
@@ -17,7 +17,7 @@ namespace lab
             {
                 int x = rand.Next(0, bitmap.Width);
                 int y = rand.Next(0, bitmap.Height);
-                var noiseColor = (rand.NextDouble() < 0.5) ? Color.Black : Color.White;
+                var noiseColor = rand.NextDouble() < 0.5 ? Color.Black : Color.White;
 
                 bitmap.SetPixel(x, y, noiseColor);
             }
@@ -53,12 +53,12 @@ namespace lab
                 for (int y = 0; y < bitmap.Height; y++)
                 {
                     var pixel = bitmap.GetPixel(x, y);
-                    
+
                     var u = 1 - rand.NextDouble();
                     double noise = 0;
-                    var mid = ((pixel.R + pixel.G + pixel.B) / 3) * 0.01;
+                    var mid = (pixel.R + pixel.G + pixel.B) / 3 * 0.01;
                     if (mid >= a)
-                        noise = b * Math.Sqrt(-2 * Math.Log(1 - u)) * 30; 
+                        noise = b * Math.Sqrt(-2 * Math.Log(1 - u)) * 30;
                     int red = (int)Math.Max(0.9 * Math.Min(pixel.R + noise, 255), 0);
                     int green = (int)Math.Max(0.9 * Math.Min(pixel.G + noise, 255), 0);
                     int blue = (int)Math.Max(0.9 * Math.Min(pixel.B + noise, 255), 0);

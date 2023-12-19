@@ -3,12 +3,12 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace lab
+namespace lab.Library
 {
     class Filter
     {
         public static byte GetMedian(byte[] arrSource)
-        {    
+        {
             byte[] arrSorted = (byte[])arrSource.Clone();
             Array.Sort(arrSorted);
             int size = arrSorted.Length;

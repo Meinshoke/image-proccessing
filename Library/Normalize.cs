@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 
-namespace lab
+namespace lab.Library
 {
     class Normalize
     {
-        public static Bitmap Normalization(Bitmap _bitmap) 
+        public static Bitmap Normalization(Bitmap _bitmap)
         {
             var bitmap = new Bitmap(_bitmap);
             int[] brightness = new int[256];
